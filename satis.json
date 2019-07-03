@@ -1,0 +1,17 @@
+{
+  "name": "My Repository",
+  "homepage": "http://packages.example.org",
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/luoxiaojun1992/laravel-queue-rabbitmq.git"
+    }
+  ],
+  "archive": {
+    "directory": "dist",
+    "format": "tar",
+    "prefix-url": "https://amazing.cdn.example.org",
+    "skip-dev": true
+  },
+  "require-all": true
+}

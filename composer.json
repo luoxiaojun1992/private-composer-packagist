@@ -1,0 +1,47 @@
+{
+    "name": "composer/satis",
+    "description": "Simple Repository Generator",
+    "keywords": ["package", "repository", "generator", "static", "composer"],
+    "homepage": "https://github.com/composer/satis",
+    "type": "library",
+    "license": "MIT",
+    "authors": [{
+        "name": "Jordi Boggiano",
+        "email": "j.boggiano@seld.be",
+        "homepage": "http://seld.be"
+    }, {
+        "name": "Nils Adermann",
+        "email": "naderman@naderman.de",
+        "homepage": "http://www.naderman.de"
+    }],
+    "support": {
+        "issues": "https://github.com/composer/satis",
+        "source": "https://github.com/composer/satis",
+        "forum": "https://gitter.com/composer/satis",
+        "irc": "irc://freenode.net/composer"
+    },
+    "bin": ["bin/satis"],
+    "require": {
+        "php": "^7.2",
+        "composer/composer": "^1.8.5",
+        "symfony/console": "^4.2",
+        "twig/twig": "^2.8"
+    },
+    "autoload": {
+        "psr-4": { "Composer\\Satis\\": "src" }
+    },
+    "require-dev": {
+        "ext-json": "*",
+        "friendsofphp/php-cs-fixer": "^2.14",
+        "mikey179/vfsstream": "^1.6",
+        "phpunit/phpunit": "^7.0 || ^8.0"
+    },
+    "autoload-dev": {
+        "psr-4": { "Composer\\Satis\\": "tests" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        }
+    }
+}
