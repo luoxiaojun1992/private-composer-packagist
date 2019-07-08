@@ -62,12 +62,14 @@ EOT
     private function mergeRequirements($requirement, $packages)
     {
         foreach ($packages as $package) {
-            if (array_key_exists($package['name'], $requirement)) {
-                $oldVersion = explode('|', $requirement[$package['name']]);
+            $packageName = strtolower($package['name']);
+
+            if (array_key_exists($packageName, $requirement)) {
+                $oldVersion = explode('|', $requirement[$packageName]);
                 $newVersion = array_values(array_unique(array_merge($oldVersion, [$package['version']])));
-                $requirement[$package['name']] = implode('|', $newVersion);
+                $requirement[$packageName] = implode('|', $newVersion);
             } else {
-                $requirement[$package['name']] = $package['version'];
+                $requirement[$packageName] = $package['version'];
             }
         }
 
