@@ -52,6 +52,13 @@ php bin/satis purge <configuration-file> <output-dir>
  > Note: don't do this unless you are certain your projects no longer reference
     any of these archives in their `composer.lock` files.
 
+## Import Requirements
+
+You can import requirements in specified `composer.lock` file.
+
+``` sh
+php bin/satis import <composer.lock-file>
+```
 
 ## Updating
 
