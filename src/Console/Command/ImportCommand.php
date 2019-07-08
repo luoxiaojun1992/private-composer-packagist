@@ -40,27 +40,48 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $packages = $this->parseLockFile($input->getArgument('lock'));
+        $lockFile = $this->parseLockFile($input->getArgument('lock'));
+        $packages = $this->parseLockPackages($lockFile);
 
-        $satisFile = new JsonFile($input->getArgument('file'));
-        $satisConfig = $satisFile->read();
+        $satisFile = $this->parseSatisFile($input->getArgument('file'));
+        $satisConfig = $this->parseSatisConfig($satisFile);
 
-        $satisConfig['require'] = $this->mergeRequirements($satisConfig['require'], $packages);
+        $satisConfig = $this->addSatisRequire($satisConfig, $packages);
 
-        $satisFile->write($satisConfig);
+        $this->writeSatisConfig($satisFile, $satisConfig);
 
         return 0;
     }
 
     private function parseLockFile($filePath)
     {
-        $lockFile = new JsonFile($filePath);
+        return $this->parseJsonFile($filePath);
+    }
+
+    private function parseLockPackages($lockFile)
+    {
         $lockConfig = $lockFile->read();
         return array_merge($lockConfig['packages'], $lockConfig['packages-dev']);
     }
 
-    private function mergeRequirements($requirement, $packages)
+    private function parseSatisFile($filePath)
     {
+        return $this->parseJsonFile($filePath);
+    }
+
+    private function parseSatisConfig($satisFile)
+    {
+        return $satisFile->read();
+    }
+
+    private function parseJsonFile($filePath)
+    {
+        return new JsonFile($filePath);
+    }
+
+    private function addSatisRequire($satisConfig, $packages)
+    {
+        $requirement = $satisConfig['require'];
         foreach ($packages as $package) {
             $packageName = strtolower($package['name']);
 
@@ -73,6 +94,12 @@ EOT
             }
         }
 
-        return $requirement;
+        $satisConfig['require'] = $requirement;
+        return $satisConfig;
+    }
+
+    private function writeSatisConfig($satisFile, $satisConfig)
+    {
+        $satisFile->write($satisConfig);
     }
 }
