@@ -85,7 +85,7 @@ EOT
         foreach ($packages as $package) {
             $packageName = strtolower($package['name']);
 
-            if (array_key_exists($packageName, $requirement)) {
+            if (!empty($requirement[$packageName])) {
                 $oldVersion = explode('|', $requirement[$packageName]);
                 $newVersion = array_values(array_unique(array_merge($oldVersion, [$package['version']])));
                 $requirement[$packageName] = implode('|', $newVersion);
