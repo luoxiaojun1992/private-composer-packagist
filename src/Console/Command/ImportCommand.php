@@ -40,6 +40,8 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $output->writeln('<info>Importing...</info>');
+
         $lockFile = $this->parseLockFile($input->getArgument('lock'));
         $packages = $this->parseLockPackages($lockFile);
 
@@ -49,6 +51,8 @@ EOT
         $satisConfig = $this->addSatisRequire($satisConfig, $packages);
 
         $this->writeSatisConfig($satisFile, $satisConfig);
+
+        $output->writeln('<info>Succeed.</info>');
 
         return 0;
     }
